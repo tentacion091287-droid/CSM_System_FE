@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { ToastProvider } from './context/ToastContext'
 import ProtectedRoute from './components/common/ProtectedRoute'
 import AdminRoute from './components/common/AdminRoute'
 import Navbar from './components/layout/Navbar'
@@ -9,6 +10,7 @@ import VehicleList from './pages/public/VehicleList'
 import VehicleDetail from './pages/public/VehicleDetail'
 import Login from './pages/public/Login'
 import Register from './pages/public/Register'
+import NotFound from './pages/public/NotFound'
 
 import CustomerDashboard from './pages/customer/CustomerDashboard'
 import BookVehicle from './pages/customer/BookVehicle'
@@ -41,6 +43,7 @@ import UserManage from './pages/admin/users/UserManage'
 export default function App() {
   return (
     <BrowserRouter>
+      <ToastProvider>
       <Navbar />
       <Routes>
         {/* Public */}
@@ -86,7 +89,11 @@ export default function App() {
           <Route path="/admin/maintenance/:id/edit" element={<MaintenanceForm />} />
           <Route path="/admin/users" element={<UserManage />} />
         </Route>
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      </ToastProvider>
     </BrowserRouter>
   )
 }

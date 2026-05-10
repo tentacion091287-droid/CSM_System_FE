@@ -50,7 +50,7 @@ export default function Home() {
         <div className="relative z-10 max-w-4xl mx-auto text-center animate-slide-up">
           <div className="inline-flex items-center gap-2 glass border border-violet-500/30 text-violet-300 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full mb-8">
             <span className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-pulse" />
-            Premium Car Rental & Service
+            Next-Gen Car Rentals ✦ No Cap
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
