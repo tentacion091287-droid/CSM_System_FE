@@ -1,14 +1,6 @@
 import { Link } from 'react-router-dom'
 import StatusBadge from '../common/StatusBadge'
-
-const CATEGORY_GRADIENT = {
-  sedan:  'from-blue-600 to-cyan-500',
-  suv:    'from-emerald-600 to-teal-500',
-  luxury: 'from-yellow-500 to-amber-400',
-  sports: 'from-red-600 to-pink-500',
-  van:    'from-violet-600 to-purple-500',
-  truck:  'from-orange-600 to-amber-500',
-}
+import { CATEGORY_GRADIENT } from '../../constants'
 
 export default function VehicleCard({ vehicle }) {
   const { id, make, model, category, daily_rate, status, image_url, year } = vehicle

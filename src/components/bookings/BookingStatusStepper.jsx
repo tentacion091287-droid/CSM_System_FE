@@ -1,11 +1,4 @@
-const STEPS = ['pending', 'approved', 'active', 'completed']
-
-const STEP_META = {
-  pending:   { label: 'Pending',   icon: '⏳' },
-  approved:  { label: 'Approved',  icon: '✅' },
-  active:    { label: 'Active',    icon: '🚗' },
-  completed: { label: 'Completed', icon: '🏁' },
-}
+import { BOOKING_STEPS as STEPS, BOOKING_STEP_META as STEP_META } from '../../constants'
 
 export default function BookingStatusStepper({ status }) {
   const isCancelled = status === 'cancelled' || status === 'rejected'

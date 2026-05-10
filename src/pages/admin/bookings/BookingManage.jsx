@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { format } from 'date-fns'
 import {
   getAllBookings, approveBooking, rejectBooking,
   activateBooking, completeBooking, assignDriver,
@@ -11,8 +10,8 @@ import StatusBadge from '../../../components/common/StatusBadge'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 import { useToast } from '../../../context/ToastContext'
-
-const STATUSES = ['', 'pending', 'approved', 'active', 'completed', 'cancelled', 'rejected']
+import { BOOKING_STATUSES as STATUSES } from '../../../constants'
+import { fmt } from '../../../utils/format'
 
 function AssignDriverModal({ open, booking, onClose, onDone }) {
   const [drivers,    setDrivers]    = useState([])

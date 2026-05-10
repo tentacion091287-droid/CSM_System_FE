@@ -5,14 +5,7 @@ import { useAuth } from '../../hooks/useAuth'
 import StatusBadge from '../../components/common/StatusBadge'
 import Spinner from '../../components/common/Spinner'
 
-const CATEGORY_GRADIENT = {
-  sedan:  'from-blue-600 to-cyan-500',
-  suv:    'from-emerald-600 to-teal-500',
-  luxury: 'from-yellow-500 to-amber-400',
-  sports: 'from-red-600 to-pink-500',
-  van:    'from-violet-600 to-purple-500',
-  truck:  'from-orange-600 to-amber-500',
-}
+import { CATEGORY_GRADIENT } from '../../constants'
 
 const Spec = ({ label, value }) => (
   <div className="glass rounded-xl p-4 border border-white/10 flex flex-col gap-1">

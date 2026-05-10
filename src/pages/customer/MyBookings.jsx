@@ -5,7 +5,7 @@ import BookingCard from '../../components/bookings/BookingCard'
 import Pagination from '../../components/common/Pagination'
 import Spinner from '../../components/common/Spinner'
 
-const STATUS_TABS = ['all', 'pending', 'approved', 'active', 'completed', 'cancelled']
+import { BOOKING_STATUS_TABS as STATUS_TABS } from '../../constants'
 
 export default function MyBookings() {
   const [bookings, setBookings] = useState([])

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
 import {
   getStats, getRevenue, getVehicleStatus,
   getRecentBookings, getPendingFines, getUpcomingMaintenance,
@@ -10,8 +9,7 @@ import RevenueChart from '../../components/dashboard/RevenueChart'
 import VehicleStatusChart from '../../components/dashboard/VehicleStatusChart'
 import StatusBadge from '../../components/common/StatusBadge'
 import Spinner from '../../components/common/Spinner'
-
-const fmt = (d) => d ? format(new Date(d), 'dd MMM yyyy') : '—'
+import { fmt } from '../../utils/format'
 
 function SectionCard({ title, sub, icon, linkTo, linkLabel, children }) {
   return (

@@ -18,7 +18,7 @@ const schema = z.object({
   path: ['return_date'],
 })
 
-const labelCls = 'block text-xs font-semibold text-white/40 uppercase tracking-widest mb-1.5'
+import { LABEL_CLS as labelCls } from '../../constants'
 
 export default function EditBooking() {
   const { id } = useParams()

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
 import { useAuth } from '../../hooks/useAuth'
+import { fmt } from '../../utils/format'
 import { getMyBookings } from '../../api/bookingsApi'
 import { getMyFines } from '../../api/finesApi'
 import StatusBadge from '../../components/common/StatusBadge'
 import Spinner from '../../components/common/Spinner'
 
-const fmt = (d) => d ? format(new Date(d), 'dd MMM yyyy') : '—'
 
 function Section({ title, icon, children, delay = '0s' }) {
   return (

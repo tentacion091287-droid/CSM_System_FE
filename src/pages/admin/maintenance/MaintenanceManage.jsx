@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
 import {
   getMaintenances, cancelMaintenance, completeMaintenance,
 } from '../../../api/maintenanceApi'
@@ -10,8 +9,8 @@ import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 import { useToast } from '../../../context/ToastContext'
 
-const fmt = (d) => d ? format(new Date(d), 'dd MMM yyyy') : '—'
-const STATUSES = ['', 'scheduled', 'in_progress', 'completed', 'cancelled']
+import { MAINTENANCE_STATUSES as STATUSES } from '../../../constants'
+import { fmt } from '../../../utils/format'
 
 function CompleteModal({ open, record, onClose, onDone }) {
   const [completedDate, setCompletedDate] = useState('')

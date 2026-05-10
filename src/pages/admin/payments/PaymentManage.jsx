@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { format } from 'date-fns'
 import { getAllPayments, verifyPayment } from '../../../api/paymentsApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
 import StatusBadge from '../../../components/common/StatusBadge'
@@ -7,9 +6,8 @@ import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 import { useToast } from '../../../context/ToastContext'
 
-const fmt = (d) => d ? format(new Date(d), 'dd MMM yyyy') : '—'
-const STATUSES = ['', 'pending', 'verified', 'failed']
-const METHOD_LABEL = { card: 'Card', upi: 'UPI', bank_transfer: 'Bank', cash: 'Cash' }
+import { PAYMENT_STATUSES as STATUSES, PAYMENT_METHOD_LABEL as METHOD_LABEL } from '../../../constants'
+import { fmt } from '../../../utils/format'
 
 export default function PaymentManage() {
   const toast = useToast()

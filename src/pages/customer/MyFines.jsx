@@ -6,12 +6,7 @@ import StatusBadge from '../../components/common/StatusBadge'
 import Pagination from '../../components/common/Pagination'
 import Spinner from '../../components/common/Spinner'
 
-const METHODS = [
-  { id: 'card',          label: 'Card',  icon: '💳' },
-  { id: 'upi',           label: 'UPI',   icon: '📱' },
-  { id: 'bank_transfer', label: 'Bank',  icon: '🏦' },
-  { id: 'cash',          label: 'Cash',  icon: '💵' },
-]
+import { PAYMENT_METHODS as METHODS } from '../../constants'
 
 function PayFineModal({ fine, onClose, onPaid }) {
   const [method,     setMethod]     = useState('')

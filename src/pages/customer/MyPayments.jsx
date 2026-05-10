@@ -6,9 +6,7 @@ import StatusBadge from '../../components/common/StatusBadge'
 import Pagination from '../../components/common/Pagination'
 import Spinner from '../../components/common/Spinner'
 
-const METHOD_ICON = { card: '💳', upi: '📱', bank_transfer: '🏦', cash: '💵' }
-
-const METHOD_LABEL = { card: 'Card', upi: 'UPI', bank_transfer: 'Bank Transfer', cash: 'Cash' }
+import { PAYMENT_METHOD_ICON as METHOD_ICON, PAYMENT_METHOD_LABEL as METHOD_LABEL } from '../../constants'
 
 function PaymentRow({ payment }) {
   const { id, booking, amount, status, payment_method, created_at } = payment

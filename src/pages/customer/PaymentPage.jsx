@@ -5,12 +5,7 @@ import { getBooking } from '../../api/bookingsApi'
 import { createPayment } from '../../api/paymentsApi'
 import Spinner from '../../components/common/Spinner'
 
-const METHODS = [
-  { id: 'card',          label: 'Credit / Debit Card', icon: '💳', desc: 'Visa, Mastercard, Amex' },
-  { id: 'upi',           label: 'UPI',                 icon: '📱', desc: 'GPay, PhonePe, Paytm'  },
-  { id: 'bank_transfer', label: 'Bank Transfer',        icon: '🏦', desc: 'NEFT / IMPS / RTGS'    },
-  { id: 'cash',          label: 'Cash',                 icon: '💵', desc: 'Pay at branch counter' },
-]
+import { PAYMENT_METHODS as METHODS } from '../../constants'
 
 export default function PaymentPage() {
   const { bookingId } = useParams()

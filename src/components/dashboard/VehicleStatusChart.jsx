@@ -1,10 +1,6 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-const STATUS_COLOR = {
-  available:   '#10b981',
-  rented:      '#8b5cf6',
-  maintenance: '#f59e0b',
-}
+import { VEHICLE_STATUS_COLORS as STATUS_COLOR } from '../../constants'
 
 function CustomTooltip({ active, payload }) {
   if (!active || !payload?.length) return null

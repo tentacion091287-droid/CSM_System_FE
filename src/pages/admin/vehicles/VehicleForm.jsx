@@ -20,9 +20,7 @@ const schema = z.object({
   image_url:     z.string().url('Must be a valid URL').or(z.literal('')).optional(),
 })
 
-const CATEGORIES    = ['economy', 'compact', 'midsize', 'suv', 'luxury', 'van', 'truck']
-const FUEL_TYPES    = ['petrol', 'diesel', 'electric', 'hybrid']
-const TRANSMISSIONS = ['automatic', 'manual']
+import { VEHICLE_CATEGORIES as CATEGORIES, FUEL_TYPES, TRANSMISSIONS } from '../../../constants'
 
 function Field({ label, error, children }) {
   return (

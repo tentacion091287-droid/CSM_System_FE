@@ -23,8 +23,7 @@ const passwordSchema = z.object({
   path: ['confirm_password'],
 })
 
-const labelCls = 'block text-xs font-semibold text-white/40 uppercase tracking-widest mb-1.5'
-const inputCls = 'input-exotic'
+import { LABEL_CLS as labelCls, INPUT_CLS as inputCls } from '../../constants'
 
 function Toast({ message, type = 'success' }) {
   const colors = type === 'success'

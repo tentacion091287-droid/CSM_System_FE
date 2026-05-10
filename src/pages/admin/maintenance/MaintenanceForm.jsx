@@ -17,10 +17,7 @@ const schema = z.object({
   cost:           z.coerce.number().nonnegative().optional().or(z.literal('')),
 })
 
-const TYPES = [
-  'oil_change', 'tire_rotation', 'brake_inspection', 'full_service',
-  'engine_check', 'ac_service', 'battery_replacement', 'other',
-]
+import { MAINTENANCE_TYPES as TYPES } from '../../../constants'
 
 function Field({ label, error, children }) {
   return (

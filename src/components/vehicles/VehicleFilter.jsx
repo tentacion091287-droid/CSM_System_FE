@@ -1,7 +1,4 @@
-const CATEGORIES = ['', 'sedan', 'suv', 'luxury', 'sports', 'van', 'truck']
-
-const inputCls = 'input-exotic text-sm py-2.5'
-const labelCls = 'block text-xs font-semibold text-white/40 uppercase tracking-widest mb-1.5'
+import { VEHICLE_BROWSE_CATEGORIES as CATEGORIES, INPUT_CLS_SM as inputCls, LABEL_CLS as labelCls } from '../../constants'
 
 export default function VehicleFilter({ filters, onChange, onSearch }) {
   const set = (key, val) => onChange({ ...filters, [key]: val })

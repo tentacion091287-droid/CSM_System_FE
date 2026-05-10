@@ -21,7 +21,7 @@ const schema = z.object({
 
 const today = new Date().toISOString().split('T')[0]
 
-const labelCls = 'block text-xs font-semibold text-white/40 uppercase tracking-widest mb-1.5'
+import { LABEL_CLS as labelCls } from '../../constants'
 
 export default function BookVehicle() {
   const { vehicleId } = useParams()

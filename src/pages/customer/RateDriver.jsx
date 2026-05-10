@@ -4,7 +4,7 @@ import { getBooking } from '../../api/bookingsApi'
 import { rateDriver } from '../../api/driversApi'
 import Spinner from '../../components/common/Spinner'
 
-const LABELS = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent']
+import { RATING_LABELS as LABELS } from '../../constants'
 
 function StarButton({ index, filled, onEnter, onLeave, onClick }) {
   return (

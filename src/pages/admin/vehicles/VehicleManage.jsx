@@ -7,8 +7,7 @@ import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 import { useToast } from '../../../context/ToastContext'
 
-const CATEGORIES = ['', 'economy', 'compact', 'midsize', 'suv', 'luxury', 'van', 'truck']
-const STATUSES   = ['', 'available', 'rented', 'maintenance']
+import { VEHICLE_CATEGORIES_WITH_ALL as CATEGORIES, VEHICLE_STATUSES as STATUSES } from '../../../constants'
 
 export default function VehicleManage() {
   const toast = useToast()

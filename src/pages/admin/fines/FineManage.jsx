@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { format } from 'date-fns'
 import { getAllFines, waiveFine } from '../../../api/finesApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
 import StatusBadge from '../../../components/common/StatusBadge'
@@ -7,8 +6,8 @@ import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 import { useToast } from '../../../context/ToastContext'
 
-const fmt = (d) => d ? format(new Date(d), 'dd MMM yyyy') : '—'
-const STATUSES = ['', 'pending', 'paid', 'waived']
+import { FINE_STATUSES as STATUSES } from '../../../constants'
+import { fmt } from '../../../utils/format'
 
 export default function FineManage() {
   const toast = useToast()
