@@ -64,7 +64,7 @@ export default function VehicleManage() {
   })
 
   const promptStatusChange = (v) => {
-    const cycle = { available: 'maintenance', maintenance: 'available', rented: 'available' }
+    const cycle = { available: 'maintenance', maintenance: 'available', booked: 'available' }
     const next = cycle[v.status] ?? 'available'
     setConfirm({
       title: 'Change Vehicle Status',

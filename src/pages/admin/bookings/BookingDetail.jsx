@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import {
   getBooking, approveBooking, rejectBooking,
-  activateBooking, completeBooking,
+  activateBooking, completeBooking, assignDriver,
 } from '../../../api/bookingsApi'
 import { getDrivers } from '../../../api/driversApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
@@ -83,7 +83,8 @@ export default function AdminBookingDetail() {
   const handleActivate = async () => {
     setActivating(true)
     try {
-      await activateBooking(id, driverId ? { driver_id: Number(driverId) } : {})
+      if (driverId) await assignDriver(id, { driver_id: driverId })
+      await activateBooking(id)
       setShowActivate(false)
       load()
     } catch { /* ignore */ }
@@ -98,7 +99,7 @@ export default function AdminBookingDetail() {
   const handleComplete = async () => {
     setCompleting(true)
     try {
-      await completeBooking(id, returnDate ? { actual_return_date: returnDate } : {})
+      await completeBooking(id, { actual_return: returnDate })
       setShowComplete(false)
       load()
     } catch { /* ignore */ }
@@ -181,9 +182,8 @@ export default function AdminBookingDetail() {
             <Section title="Dates & Financials">
               <Field label="Start Date"    value={fmt(b.start_date)} />
               <Field label="End Date"      value={fmt(b.end_date)} />
-              {b.actual_return_date && <Field label="Actual Return" value={fmt(b.actual_return_date)} />}
+              {b.actual_return && <Field label="Actual Return" value={fmt(b.actual_return)} />}
               <Field label="Total Cost"    value={b.total_cost != null ? `$${Number(b.total_cost).toFixed(2)}` : '—'} />
-              <Field label="Payment Status" value={b.payment_status ?? '—'} />
               <Field label="Booked On"     value={fmt(b.created_at)} />
             </Section>
           </div>

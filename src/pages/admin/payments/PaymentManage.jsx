@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllPayments, verifyPayment } from '../../../api/paymentsApi'
+import { getAllPayments, processPayment } from '../../../api/paymentsApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
 import StatusBadge from '../../../components/common/StatusBadge'
 import Pagination from '../../../components/common/Pagination'
@@ -59,7 +59,7 @@ export default function PaymentManage() {
     danger: false,
     successMsg: 'Payment verified',
     errorMsg: 'Failed to verify payment',
-    action: () => verifyPayment(p.id),
+    action: () => processPayment(p.id),
   })
 
   return (

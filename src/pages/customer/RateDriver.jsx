@@ -78,7 +78,7 @@ export default function RateDriver() {
     if (rating === 0) { setError('Please select a star rating.'); return }
     setError(''); setSubmitting(true)
     try {
-      await rateDriver(bookingId, { rating, review: review.trim() || undefined })
+      await rateDriver({ driver_id: booking.driver.id, booking_id: booking.id, rating, review: review.trim() || undefined })
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to submit rating. Please try again.')

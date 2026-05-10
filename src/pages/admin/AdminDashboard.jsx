@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  getStats, getRevenue, getVehicleStatus,
-  getRecentBookings, getPendingFines, getUpcomingMaintenance,
-} from '../../api/dashboardApi'
+import { format } from 'date-fns'
+import { getDashboard } from '../../api/dashboardApi'
+import { getAllBookings } from '../../api/bookingsApi'
+import { getAllFines } from '../../api/finesApi'
+import { getMaintenances } from '../../api/maintenanceApi'
 import StatCard from '../../components/dashboard/StatCard'
 import RevenueChart from '../../components/dashboard/RevenueChart'
 import VehicleStatusChart from '../../components/dashboard/VehicleStatusChart'
@@ -34,9 +35,7 @@ function SectionCard({ title, sub, icon, linkTo, linkLabel, children }) {
 }
 
 export default function AdminDashboard() {
-  const [stats,          setStats]          = useState(null)
-  const [revenue,        setRevenue]        = useState([])
-  const [vehStatus,      setVehStatus]      = useState([])
+  const [dash,           setDash]           = useState(null)
   const [recentBookings, setRecentBookings] = useState([])
   const [pendingFines,   setPendingFines]   = useState([])
   const [upcomingMaint,  setUpcomingMaint]  = useState([])
@@ -45,29 +44,31 @@ export default function AdminDashboard() {
   useEffect(() => {
     const norm = (d) => Array.isArray(d) ? d : d?.items ?? []
     Promise.allSettled([
-      getStats(),
-      getRevenue(),
-      getVehicleStatus(),
-      getRecentBookings(),
-      getPendingFines(),
-      getUpcomingMaintenance(),
-    ]).then(([s, r, v, rb, pf, um]) => {
-      if (s.status  === 'fulfilled') setStats(s.value.data)
-      if (r.status  === 'fulfilled') setRevenue(norm(r.value.data))
-      if (v.status  === 'fulfilled') setVehStatus(norm(v.value.data))
+      getDashboard(),
+      getAllBookings({ page: 1, size: 8 }),
+      getAllFines({ status: 'pending', page: 1, size: 5 }),
+      getMaintenances({ status: 'scheduled', page: 1, size: 5 }),
+    ]).then(([d, rb, pf, um]) => {
+      if (d.status  === 'fulfilled') setDash(d.value.data)
       if (rb.status === 'fulfilled') setRecentBookings(norm(rb.value.data))
       if (pf.status === 'fulfilled') setPendingFines(norm(pf.value.data))
       if (um.status === 'fulfilled') setUpcomingMaint(norm(um.value.data))
     }).finally(() => setLoading(false))
   }, [])
 
+  const vehStatus = dash ? [
+    { name: 'available',   value: dash.vehicles.available   },
+    { name: 'booked',      value: dash.vehicles.booked      },
+    { name: 'maintenance', value: dash.vehicles.maintenance },
+  ].filter(d => d.value > 0) : []
+
   const STAT_CARDS = [
-    { icon: '📋', label: 'Total Bookings',     value: stats?.total_bookings ?? '—',     color: 'violet', sub: 'All time',              delay: 0     },
-    { icon: '🚗', label: 'Active Rentals',     value: stats?.active_rentals ?? '—',     color: 'emerald', sub: 'On road now',           delay: 0.05  },
-    { icon: '💰', label: 'Total Revenue',      value: stats?.total_revenue != null ? `$${Number(stats.total_revenue).toLocaleString()}` : '—', color: 'blue', sub: 'Verified payments', delay: 0.1 },
-    { icon: '✅', label: 'Available Vehicles', value: stats?.available_vehicles ?? '—', color: 'cyan',   sub: 'Ready to book',          delay: 0.15  },
-    { icon: '⏳', label: 'Pending Payments',  value: stats?.pending_payments ?? '—',   color: 'amber',  sub: 'Awaiting verification',   delay: 0.2   },
-    { icon: '⚠️', label: 'Overdue Returns',   value: stats?.overdue_returns ?? '—',    color: 'red',    sub: 'Past return date',        delay: 0.25  },
+    { icon: '📋', label: 'Total Bookings',     value: dash?.bookings?.total     ?? '—', color: 'violet',  sub: 'All time',             delay: 0    },
+    { icon: '🚗', label: 'Active Rentals',     value: dash?.bookings?.active    ?? '—', color: 'emerald', sub: 'On road now',           delay: 0.05 },
+    { icon: '💰', label: 'Total Revenue',      value: dash?.revenue?.total != null ? `$${Number(dash.revenue.total).toLocaleString()}` : '—', color: 'blue', sub: 'Verified payments', delay: 0.1 },
+    { icon: '✅', label: 'Available Vehicles', value: dash?.vehicles?.available ?? '—', color: 'cyan',    sub: 'Ready to book',         delay: 0.15 },
+    { icon: '⏳', label: 'Pending Payments',  value: dash?.payments?.pending   ?? '—', color: 'amber',   sub: 'Awaiting processing',   delay: 0.2  },
+    { icon: '⏰', label: 'Pending Bookings',  value: dash?.bookings?.pending   ?? '—', color: 'red',     sub: 'Awaiting approval',     delay: 0.25 },
   ]
 
   if (loading) return (
@@ -108,8 +109,8 @@ export default function AdminDashboard() {
                 📈
               </div>
             </div>
-            {revenue.length > 0
-              ? <RevenueChart data={revenue} />
+            {dash?.monthly_revenue?.length > 0
+              ? <RevenueChart data={dash.monthly_revenue} />
               : <div className="h-[220px] flex items-center justify-center text-white/20 text-sm">No revenue data yet</div>
             }
           </div>
@@ -138,7 +139,6 @@ export default function AdminDashboard() {
               <p className="text-white/20 text-sm text-center py-10">No recent bookings</p>
             ) : (
               <div>
-                {/* Table header */}
                 <div className="hidden sm:grid grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-4 px-5 py-2.5 bg-white/3 border-b border-white/5">
                   {['#', 'Customer', 'Vehicle', 'Status', 'Date', 'Amount'].map(h => (
                     <p key={h} className="text-white/25 text-xs uppercase tracking-widest font-semibold">{h}</p>
@@ -151,7 +151,7 @@ export default function AdminDashboard() {
                       to={`/admin/bookings/${b.id}`}
                       className="flex flex-col sm:grid sm:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-2 sm:gap-4 items-start sm:items-center px-5 py-3.5 hover:bg-white/3 transition-colors"
                     >
-                      <span className="text-white/20 text-xs font-mono">#{String(b.id).padStart(5, '0')}</span>
+                      <span className="text-white/20 text-xs font-mono">#{String(b.id).slice(0, 8)}</span>
                       <p className="text-white text-sm truncate">{b.customer?.name ?? b.user?.name ?? '—'}</p>
                       <p className="text-white/40 text-sm truncate">{b.vehicle?.make} {b.vehicle?.model}</p>
                       <StatusBadge status={b.status} />
@@ -183,9 +183,9 @@ export default function AdminDashboard() {
                         <p className="text-white/30 text-xs truncate">{f.reason ?? 'Late return'}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-red-400 font-bold text-sm">${Number(f.amount).toFixed(0)}</p>
-                        {f.days_overdue != null && (
-                          <p className="text-white/20 text-xs">{f.days_overdue}d overdue</p>
+                        <p className="text-red-400 font-bold text-sm">${Number(f.amount ?? f.total_amount ?? 0).toFixed(0)}</p>
+                        {f.overdue_days != null && (
+                          <p className="text-white/20 text-xs">{f.overdue_days}d overdue</p>
                         )}
                       </div>
                     </div>

@@ -1,19 +1,18 @@
 // ─── Vehicle ─────────────────────────────────────────────────────────────────
 
-export const VEHICLE_CATEGORIES = ['economy', 'compact', 'midsize', 'suv', 'luxury', 'van', 'truck']
+export const VEHICLE_CATEGORIES = ['economy', 'standard', 'premium', 'suv', 'van']
 export const VEHICLE_CATEGORIES_WITH_ALL = ['', ...VEHICLE_CATEGORIES]
-export const VEHICLE_BROWSE_CATEGORIES   = ['', 'sedan', 'suv', 'luxury', 'sports', 'van', 'truck']
+export const VEHICLE_BROWSE_CATEGORIES   = ['', 'economy', 'standard', 'premium', 'suv', 'van']
 export const FUEL_TYPES    = ['petrol', 'diesel', 'electric', 'hybrid']
 export const TRANSMISSIONS = ['automatic', 'manual']
-export const VEHICLE_STATUSES = ['', 'available', 'rented', 'maintenance']
+export const VEHICLE_STATUSES = ['', 'available', 'booked', 'maintenance']
 
 export const CATEGORY_GRADIENT = {
-  sedan:  'from-blue-600 to-cyan-500',
-  suv:    'from-emerald-600 to-teal-500',
-  luxury: 'from-yellow-500 to-amber-400',
-  sports: 'from-red-600 to-pink-500',
-  van:    'from-violet-600 to-purple-500',
-  truck:  'from-orange-600 to-amber-500',
+  economy:  'from-blue-600 to-cyan-500',
+  standard: 'from-emerald-600 to-teal-500',
+  premium:  'from-yellow-500 to-amber-400',
+  suv:      'from-violet-600 to-purple-500',
+  van:      'from-orange-600 to-amber-500',
 }
 
 // ─── Bookings ────────────────────────────────────────────────────────────────
@@ -38,7 +37,7 @@ export const PAYMENT_METHODS = [
 ]
 export const PAYMENT_METHOD_ICON  = { card: '💳', upi: '📱', bank_transfer: '🏦', cash: '💵' }
 export const PAYMENT_METHOD_LABEL = { card: 'Card', upi: 'UPI', bank_transfer: 'Bank Transfer', cash: 'Cash' }
-export const PAYMENT_STATUSES     = ['', 'pending', 'verified', 'failed']
+export const PAYMENT_STATUSES     = ['', 'pending', 'processing', 'completed', 'failed', 'refunded']
 
 // ─── Fines ───────────────────────────────────────────────────────────────────
 
@@ -66,7 +65,7 @@ export const STATUS_BADGE_CONFIG = {
   cancelled:   { label: 'Cancelled',   bg: 'bg-red-500/15     border-red-500/30     text-red-400'     },
   rejected:    { label: 'Rejected',    bg: 'bg-red-500/15     border-red-500/30     text-red-400'     },
   available:   { label: 'Available',   bg: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400' },
-  rented:      { label: 'Rented',      bg: 'bg-violet-500/15  border-violet-500/30  text-violet-400'  },
+  booked:      { label: 'Booked',      bg: 'bg-violet-500/15  border-violet-500/30  text-violet-400'  },
   maintenance: { label: 'Maintenance', bg: 'bg-orange-500/15  border-orange-500/30  text-orange-400'  },
   paid:        { label: 'Paid',        bg: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400' },
   unpaid:      { label: 'Unpaid',      bg: 'bg-red-500/15     border-red-500/30     text-red-400'     },
@@ -74,6 +73,8 @@ export const STATUS_BADGE_CONFIG = {
   scheduled:   { label: 'Scheduled',   bg: 'bg-cyan-500/15    border-cyan-500/30    text-cyan-400'    },
   in_progress: { label: 'In Progress', bg: 'bg-amber-500/15   border-amber-500/30   text-amber-400'   },
   verified:    { label: 'Verified',    bg: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400' },
+  processing:  { label: 'Processing',  bg: 'bg-blue-500/15    border-blue-500/30    text-blue-400'    },
+  refunded:    { label: 'Refunded',    bg: 'bg-white/10       border-white/20       text-white/50'    },
   failed:      { label: 'Failed',      bg: 'bg-red-500/15     border-red-500/30     text-red-400'     },
   inactive:    { label: 'Inactive',    bg: 'bg-white/10       border-white/20       text-white/40'    },
 }
@@ -91,7 +92,7 @@ export const STAT_CARD_COLORS = {
 
 export const VEHICLE_STATUS_COLORS = {
   available:   '#10b981',
-  rented:      '#8b5cf6',
+  booked:      '#8b5cf6',
   maintenance: '#f59e0b',
 }
 
@@ -227,10 +228,9 @@ export const HOME_TESTIMONIALS = [
 ]
 
 export const HOME_CATEGORIES = [
-  { name: 'Sedan',  icon: '🚗', gradient: 'from-blue-600 to-cyan-500'     },
-  { name: 'SUV',    icon: '🚙', gradient: 'from-emerald-600 to-teal-500'  },
-  { name: 'Luxury', icon: '🏎️', gradient: 'from-yellow-500 to-amber-400' },
-  { name: 'Sports', icon: '⚡', gradient: 'from-red-600 to-pink-500'      },
-  { name: 'Van',    icon: '🚐', gradient: 'from-violet-600 to-purple-500' },
-  { name: 'Truck',  icon: '🛻', gradient: 'from-orange-600 to-amber-500'  },
+  { name: 'Economy',  icon: '🚗', gradient: 'from-blue-600 to-cyan-500'     },
+  { name: 'Standard', icon: '🚙', gradient: 'from-emerald-600 to-teal-500'  },
+  { name: 'Premium',  icon: '🏎️', gradient: 'from-yellow-500 to-amber-400' },
+  { name: 'SUV',      icon: '🚐', gradient: 'from-violet-600 to-purple-500' },
+  { name: 'Van',      icon: '🚐', gradient: 'from-orange-600 to-amber-500'  },
 ]

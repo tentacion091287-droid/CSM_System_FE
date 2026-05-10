@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { format } from 'date-fns'
 import {
   getAllBookings, approveBooking, rejectBooking,
   activateBooking, completeBooking, assignDriver,
@@ -37,7 +38,8 @@ function AssignDriverModal({ open, booking, onClose, onDone }) {
   const handleActivate = async () => {
     setLoading(true)
     try {
-      await activateBooking(booking.id, driverId ? { driver_id: Number(driverId) } : {})
+      if (driverId) await assignDriver(booking.id, { driver_id: driverId })
+      await activateBooking(booking.id)
       onDone()
     } catch { /* ignore */ }
     finally { setLoading(false) }
@@ -97,7 +99,7 @@ function CompleteModal({ open, booking, onClose, onDone }) {
   const handleComplete = async () => {
     setLoading(true)
     try {
-      await completeBooking(booking.id, returnDate ? { actual_return_date: returnDate } : {})
+      await completeBooking(booking.id, { actual_return: returnDate })
       onDone()
     } catch { /* ignore */ }
     finally { setLoading(false) }

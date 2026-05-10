@@ -63,11 +63,11 @@ export default function Profile() {
   useEffect(() => {
     getProfile()
       .then(r => {
-        const { name, email, phone } = r.data
-        resetProfile({ name, email, phone: phone ?? '' })
+        const d = r.data
+        resetProfile({ name: d.full_name ?? d.name ?? '', email: d.email ?? '', phone: d.phone ?? '' })
       })
       .catch(() => {
-        if (user) resetProfile({ name: user.name ?? '', email: user.email ?? '', phone: user.phone ?? '' })
+        if (user) resetProfile({ name: user.full_name ?? user.name ?? '', email: user.email ?? '', phone: user.phone ?? '' })
       })
       .finally(() => setLoadingProfile(false))
   }, [])
@@ -79,7 +79,7 @@ export default function Profile() {
 
   const onProfileSubmit = async (data) => {
     try {
-      const res = await updateProfile(data)
+      const res = await updateProfile({ full_name: data.name, phone: data.phone || null })
       dispatch(setCredentials({ user: res.data, token }))
       flash(setProfileToast, 'Profile updated successfully.')
     } catch (err) {
