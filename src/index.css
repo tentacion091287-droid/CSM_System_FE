@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-[#0a0a1a] text-white;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400;
+    background-size: 300%;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-gradient {
+    @apply relative overflow-hidden bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white font-semibold rounded-xl transition-all duration-300;
+    background-size: 200%;
+    background-position: left;
+  }
+  .btn-gradient:hover {
+    background-position: right;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+  }
+  .btn-gradient:active {
+    transform: translateY(0);
+  }
+
+  .input-exotic {
+    @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30
+      focus:outline-none focus:border-violet-500/60 focus:bg-white/10 transition-all duration-300;
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.2), 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px);
+  }
+}
