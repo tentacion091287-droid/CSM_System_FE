@@ -33,7 +33,7 @@ export default function PaymentPage() {
     if (!method) { setError('Please select a payment method.'); return }
     setError(''); setSubmitting(true)
     try {
-      await createPayment({ booking_id: Number(bookingId), payment_method: method, amount: booking.total_cost })
+      await createPayment({ booking_id: bookingId, payment_method: method })
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.detail || 'Payment submission failed. Please try again.')
