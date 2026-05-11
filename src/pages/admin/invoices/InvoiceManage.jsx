@@ -95,7 +95,7 @@ export default function InvoiceManage() {
                     {inv.booking_id ? `#${String(inv.booking_id).padStart(5, '0')}` : '—'}
                   </span>
                   <p className={`font-bold text-sm ${inv.status === 'paid' ? 'text-emerald-400' : 'gradient-text'}`}>
-                    ${Number(inv.amount ?? inv.total_amount ?? 0).toFixed(0)}
+                    ₹{Number(inv.amount ?? inv.total_amount ?? 0).toFixed(0)}
                   </p>
                   <StatusBadge status={inv.status ?? 'unpaid'} />
                   <p className="text-white/25 text-xs">{fmt(inv.issued_date ?? inv.created_at)}</p>

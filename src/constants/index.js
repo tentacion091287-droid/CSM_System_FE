@@ -1,3 +1,6 @@
+// ─── Pricing ─────────────────────────────────────────────────────────────────
+export const DRIVER_DAILY_RATE = 300   // must match backend DRIVER_DAILY_RATE
+
 // ─── Vehicle ─────────────────────────────────────────────────────────────────
 
 export const VEHICLE_CATEGORIES = ['economy', 'standard', 'premium', 'suv', 'van']

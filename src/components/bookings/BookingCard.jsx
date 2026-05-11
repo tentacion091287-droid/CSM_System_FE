@@ -54,7 +54,7 @@ export default function BookingCard({ booking }) {
 
             {total_cost != null && (
               <span className="gradient-text font-bold text-lg">
-                ${Number(total_cost).toFixed(0)}
+                ₹{Number(total_cost).toFixed(0)}
               </span>
             )}
           </div>

@@ -43,7 +43,7 @@ function PayFineModal({ fine, onClose, onPaid }) {
           <h3 className="text-white font-bold text-lg mb-1">Pay Fine</h3>
           <p className="text-white/30 text-sm">
             Fine #{String(fine.id).padStart(5, '0')} ·{' '}
-            <span className="text-red-400 font-bold">${Number(fine.amount).toFixed(2)}</span>
+            <span className="text-red-400 font-bold">₹{Number(fine.amount).toFixed(2)}</span>
           </p>
         </div>
 
@@ -118,7 +118,7 @@ function FineRow({ fine, onPayClick }) {
             </div>
             <div className="text-right shrink-0">
               <p className={`text-xl font-bold ${status === 'pending' ? 'text-red-400' : 'gradient-text'}`}>
-                ${Number(amount).toFixed(2)}
+                ₹{Number(amount).toFixed(2)}
               </p>
               <div className="mt-1 flex justify-end">
                 <StatusBadge status={status} />
@@ -212,8 +212,8 @@ export default function MyFines() {
           <div className="grid grid-cols-3 gap-3 mb-6 animate-slide-up" style={{ animationDelay: '0.05s' }}>
             {[
               { label: 'Total',   value: total,        fmt: (v) => `${v}` },
-              { label: 'Pending', value: totalPending, fmt: (v) => `$${v.toFixed(0)}` },
-              { label: 'Paid',    value: totalPaid,    fmt: (v) => `$${v.toFixed(0)}` },
+              { label: 'Pending', value: totalPending, fmt: (v) => `₹${v.toFixed(0)}` },
+              { label: 'Paid',    value: totalPaid,    fmt: (v) => `₹${v.toFixed(0)}` },
             ].map(({ label, value, fmt }) => (
               <div key={label} className="glass rounded-2xl border border-white/10 p-4 text-center">
                 <p className={`text-2xl font-bold ${label === 'Pending' && totalPending > 0 ? 'text-red-400' : 'gradient-text'}`}>

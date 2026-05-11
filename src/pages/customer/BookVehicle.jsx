@@ -21,7 +21,7 @@ const schema = z.object({
 
 const today = new Date().toISOString().split('T')[0]
 
-import { LABEL_CLS as labelCls } from '../../constants'
+import { LABEL_CLS as labelCls, DRIVER_DAILY_RATE } from '../../constants'
 
 export default function BookVehicle() {
   const { vehicleId } = useParams()
@@ -35,13 +35,16 @@ export default function BookVehicle() {
     defaultValues: { needs_driver: false },
   })
 
-  const pickupDate = watch('pickup_date')
-  const returnDate = watch('return_date')
+  const pickupDate  = watch('pickup_date')
+  const returnDate  = watch('return_date')
+  const needsDriver = watch('needs_driver')
 
-  const days = pickupDate && returnDate && returnDate > pickupDate
+  const days        = pickupDate && returnDate && returnDate > pickupDate
     ? differenceInCalendarDays(new Date(returnDate), new Date(pickupDate))
     : 0
-  const estimate = days > 0 && vehicle ? days * Number(vehicle.daily_rate) : 0
+  const vehicleCost = days > 0 && vehicle ? days * Number(vehicle.daily_rate) : 0
+  const driverCost  = needsDriver && days > 0 ? days * DRIVER_DAILY_RATE : 0
+  const estimate    = vehicleCost + driverCost
 
   useEffect(() => {
     getVehicle(vehicleId)
@@ -53,10 +56,15 @@ export default function BookVehicle() {
   const onSubmit = async (data) => {
     setServerError('')
     try {
-      const res = await createBooking({ ...data, vehicle_id: Number(vehicleId) })
+      const res = await createBooking({ ...data, vehicle_id: vehicleId })
       navigate(`/bookings/${res.data.id}`)
     } catch (err) {
-      setServerError(err.response?.data?.detail || 'Booking failed. Please try again.')
+      const detail = err.response?.data?.detail
+      if (Array.isArray(detail)) {
+        setServerError(detail.map(d => d.msg).join('; '))
+      } else {
+        setServerError(typeof detail === 'string' ? detail : 'Booking failed. Please try again.')
+      }
     }
   }
 
@@ -88,7 +96,7 @@ export default function BookVehicle() {
               <p className="text-white/30 text-sm capitalize">{vehicle.category} · {vehicle.year}</p>
             </div>
             <div className="text-right">
-              <p className="gradient-text text-2xl font-bold">${Number(vehicle.daily_rate).toFixed(0)}</p>
+              <p className="gradient-text text-2xl font-bold">₹{Number(vehicle.daily_rate).toFixed(0)}</p>
               <p className="text-white/20 text-xs">/day</p>
             </div>
           </div>
@@ -142,12 +150,23 @@ export default function BookVehicle() {
 
             {/* Live cost estimate */}
             {days > 0 && vehicle && (
-              <div className="rounded-xl bg-violet-500/10 border border-violet-500/20 p-4 flex items-center justify-between animate-fade-in">
-                <div>
+              <div className="rounded-xl bg-violet-500/10 border border-violet-500/20 p-4 animate-fade-in">
+                <div className="flex items-center justify-between">
                   <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">Estimated Cost</p>
-                  <p className="text-white/60 text-sm mt-0.5">{days} day{days !== 1 ? 's' : ''} × ${Number(vehicle.daily_rate).toFixed(0)}/day</p>
+                  <p className="gradient-text text-3xl font-bold">₹{estimate.toFixed(0)}</p>
                 </div>
-                <p className="gradient-text text-3xl font-bold">${estimate.toFixed(0)}</p>
+                <div className="mt-2 space-y-1">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-white/50">{days} day{days !== 1 ? 's' : ''} × ₹{Number(vehicle.daily_rate).toFixed(0)}/day</span>
+                    <span className="text-white/50">₹{vehicleCost.toFixed(0)}</span>
+                  </div>
+                  {needsDriver && (
+                    <div className="flex justify-between text-sm animate-fade-in">
+                      <span className="text-violet-400">Driver · {days} day{days !== 1 ? 's' : ''} × ₹{DRIVER_DAILY_RATE}/day</span>
+                      <span className="text-violet-400">+₹{driverCost.toFixed(0)}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 

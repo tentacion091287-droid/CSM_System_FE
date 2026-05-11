@@ -98,7 +98,7 @@ export default function VehicleDetail() {
           {/* Pricing + CTA */}
           <div className="glass rounded-2xl border border-white/10 p-6 min-w-[220px] text-center shrink-0">
             <p className="text-white/30 text-xs uppercase tracking-widest mb-1">Daily Rate</p>
-            <p className="gradient-text text-4xl font-bold">${Number(vehicle.daily_rate).toFixed(0)}</p>
+            <p className="gradient-text text-4xl font-bold">₹{Number(vehicle.daily_rate).toFixed(0)}</p>
             <p className="text-white/20 text-xs mb-4">/day</p>
             <button
               onClick={handleBook}

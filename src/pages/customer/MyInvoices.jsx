@@ -33,7 +33,7 @@ function InvoiceRow({ invoice }) {
               </div>
             </div>
             <div className="text-right shrink-0">
-              <p className="gradient-text text-xl font-bold">${Number(amount).toFixed(2)}</p>
+              <p className="gradient-text text-xl font-bold">₹{Number(amount).toFixed(2)}</p>
               <div className="mt-1 flex justify-end">
                 <StatusBadge status={status} />
               </div>
@@ -103,8 +103,8 @@ export default function MyInvoices() {
           <div className="grid grid-cols-3 gap-3 mb-6 animate-slide-up" style={{ animationDelay: '0.05s' }}>
             {[
               { label: 'Total',  value: total,       fmt: (v) => `${v}` },
-              { label: 'Paid',   value: totalPaid,   fmt: (v) => `$${v.toFixed(0)}` },
-              { label: 'Unpaid', value: totalUnpaid, fmt: (v) => `$${v.toFixed(0)}` },
+              { label: 'Paid',   value: totalPaid,   fmt: (v) => `₹${v.toFixed(0)}` },
+              { label: 'Unpaid', value: totalUnpaid, fmt: (v) => `₹${v.toFixed(0)}` },
             ].map(({ label, value, fmt }) => (
               <div key={label} className="glass rounded-2xl border border-white/10 p-4 text-center">
                 <p className={`text-2xl font-bold ${label === 'Unpaid' && totalUnpaid > 0 ? 'text-amber-400' : 'gradient-text'}`}>

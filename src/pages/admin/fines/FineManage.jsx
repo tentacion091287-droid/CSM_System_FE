@@ -54,7 +54,7 @@ export default function FineManage() {
 
   const promptWaive = (f) => setConfirm({
     title: 'Waive Fine',
-    message: `Waive fine of $${Number(f.amount).toFixed(0)} for ${f.customer?.name ?? f.user?.name ?? '—'}? This cannot be undone.`,
+    message: `Waive fine of ₹${Number(f.amount).toFixed(0)} for ${f.customer?.name ?? f.user?.name ?? '—'}? This cannot be undone.`,
     confirmLabel: 'Waive',
     danger: false,
     successMsg: 'Fine waived',
@@ -83,9 +83,24 @@ export default function FineManage() {
             <input type="text" placeholder="Search by customer..." value={search}
               onChange={e => { setSearch(e.target.value); setPage(1) }} className="input-exotic pl-10" />
           </div>
-          <select value={status} onChange={e => { setStatus(e.target.value); setPage(1) }} className="input-exotic sm:w-40">
-            {STATUSES.map(s => <option key={s} value={s}>{s ? s.charAt(0).toUpperCase() + s.slice(1) : 'All Statuses'}</option>)}
-          </select>
+          <div className="relative sm:w-44">
+            <select
+              value={status}
+              onChange={e => { setStatus(e.target.value); setPage(1) }}
+              className="w-full appearance-none rounded-xl border border-white/10 bg-[#12122a] px-4 py-3 pr-9 text-sm text-white
+                focus:outline-none focus:border-violet-500/60 transition-all duration-300 cursor-pointer"
+            >
+              {STATUSES.map(s => (
+                <option key={s} value={s} className="bg-[#12122a] text-white">
+                  {s ? s.charAt(0).toUpperCase() + s.slice(1) : 'All Statuses'}
+                </option>
+              ))}
+            </select>
+            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
 
         {loading ? (
@@ -119,7 +134,7 @@ export default function FineManage() {
                     <p className="text-white/30 text-xs truncate">{f.customer?.email ?? f.user?.email ?? ''}</p>
                   </div>
                   <p className="text-white/40 text-sm truncate">{f.reason ?? 'Late return'}</p>
-                  <p className="text-red-400 font-bold text-sm">${Number(f.amount ?? 0).toFixed(0)}</p>
+                  <p className="text-red-400 font-bold text-sm">₹{Number(f.amount ?? 0).toFixed(0)}</p>
                   <StatusBadge status={f.status ?? 'pending'} />
                   <p className="text-white/25 text-xs">{fmt(f.created_at)}</p>
                   <div>

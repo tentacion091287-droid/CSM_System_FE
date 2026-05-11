@@ -173,7 +173,7 @@ export default function AdminBookingDetail() {
               <Field label="Year"  value={vehicle.year} />
               <Field label="Plate" value={vehicle.license_plate ?? vehicle.plate ?? '—'} mono />
               <Field label="Category" value={vehicle.category ?? vehicle.type ?? '—'} />
-              <Field label="Daily Rate" value={vehicle.price_per_day != null ? `$${Number(vehicle.price_per_day).toFixed(2)}/day` : '—'} />
+              <Field label="Daily Rate" value={vehicle.price_per_day != null ? `₹${Number(vehicle.price_per_day).toFixed(2)}/day` : '—'} />
             </Section>
           </div>
 
@@ -183,7 +183,7 @@ export default function AdminBookingDetail() {
               <Field label="Start Date"    value={fmt(b.start_date)} />
               <Field label="End Date"      value={fmt(b.end_date)} />
               {b.actual_return && <Field label="Actual Return" value={fmt(b.actual_return)} />}
-              <Field label="Total Cost"    value={b.total_cost != null ? `$${Number(b.total_cost).toFixed(2)}` : '—'} />
+              <Field label="Total Cost"    value={b.total_cost != null ? `₹${Number(b.total_cost).toFixed(2)}` : '—'} />
               <Field label="Booked On"     value={fmt(b.created_at)} />
             </Section>
           </div>

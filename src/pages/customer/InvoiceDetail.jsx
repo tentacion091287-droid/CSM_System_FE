@@ -89,7 +89,7 @@ export default function InvoiceDetail() {
                 <p className="text-white/30 text-sm">#{String(id).padStart(5, '0')}</p>
               </div>
               <div className="text-right">
-                <p className="gradient-text text-3xl font-bold">${Number(amount).toFixed(2)}</p>
+                <p className="gradient-text text-3xl font-bold">₹{Number(amount).toFixed(2)}</p>
                 <p className="text-white/20 text-xs mt-0.5">Total Amount</p>
               </div>
             </div>
@@ -121,7 +121,7 @@ export default function InvoiceDetail() {
                 {booking.pickup_date && <InfoRow label="Pickup"  value={fmt(booking.pickup_date)} />}
                 {booking.return_date && <InfoRow label="Return"  value={fmt(booking.return_date)} />}
                 <div className="pt-2 border-t border-white/5">
-                  <InfoRow label="Rental Cost" value={`$${Number(booking.total_cost ?? amount).toFixed(2)}`} highlight />
+                  <InfoRow label="Rental Cost" value={`₹${Number(booking.total_cost ?? amount).toFixed(2)}`} highlight />
                 </div>
               </div>
             )}

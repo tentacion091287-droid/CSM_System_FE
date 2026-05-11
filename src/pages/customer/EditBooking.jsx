@@ -18,7 +18,7 @@ const schema = z.object({
   path: ['return_date'],
 })
 
-import { LABEL_CLS as labelCls } from '../../constants'
+import { LABEL_CLS as labelCls, DRIVER_DAILY_RATE } from '../../constants'
 
 export default function EditBooking() {
   const { id } = useParams()
@@ -32,10 +32,14 @@ export default function EditBooking() {
   })
 
   const pickupDate = watch('pickup_date')
-  const returnDate = watch('return_date')
-  const days = pickupDate && returnDate && returnDate > pickupDate
+  const returnDate  = watch('return_date')
+  const needsDriver = watch('needs_driver')
+
+  const days        = pickupDate && returnDate && returnDate > pickupDate
     ? differenceInCalendarDays(new Date(returnDate), new Date(pickupDate)) : 0
-  const estimate = days > 0 && vehicle ? days * Number(vehicle.daily_rate) : 0
+  const vehicleCost = days > 0 && vehicle ? days * Number(vehicle.daily_rate) : 0
+  const driverCost  = needsDriver && days > 0 ? days * DRIVER_DAILY_RATE : 0
+  const estimate    = vehicleCost + driverCost
 
   useEffect(() => {
     getBooking(id)
@@ -91,7 +95,7 @@ export default function EditBooking() {
               <p className="text-white/30 text-sm capitalize">{vehicle.category} · {vehicle.year}</p>
             </div>
             <div className="text-right">
-              <p className="gradient-text text-xl font-bold">${Number(vehicle.daily_rate).toFixed(0)}</p>
+              <p className="gradient-text text-xl font-bold">₹{Number(vehicle.daily_rate).toFixed(0)}</p>
               <p className="text-white/20 text-xs">/day</p>
             </div>
           </div>
@@ -142,12 +146,23 @@ export default function EditBooking() {
 
             {/* Live cost estimate */}
             {days > 0 && vehicle && (
-              <div className="rounded-xl bg-violet-500/10 border border-violet-500/20 p-4 flex items-center justify-between animate-fade-in">
-                <div>
+              <div className="rounded-xl bg-violet-500/10 border border-violet-500/20 p-4 animate-fade-in">
+                <div className="flex items-center justify-between">
                   <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">Updated Estimate</p>
-                  <p className="text-white/50 text-sm mt-0.5">{days} day{days !== 1 ? 's' : ''} × ${Number(vehicle.daily_rate).toFixed(0)}/day</p>
+                  <p className="gradient-text text-3xl font-bold">₹{estimate.toFixed(0)}</p>
                 </div>
-                <p className="gradient-text text-3xl font-bold">${estimate.toFixed(0)}</p>
+                <div className="mt-2 space-y-1">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-white/50">{days} day{days !== 1 ? 's' : ''} × ₹{Number(vehicle.daily_rate).toFixed(0)}/day</span>
+                    <span className="text-white/50">₹{vehicleCost.toFixed(0)}</span>
+                  </div>
+                  {needsDriver && (
+                    <div className="flex justify-between text-sm animate-fade-in">
+                      <span className="text-violet-400">Driver · {days} day{days !== 1 ? 's' : ''} × ₹{DRIVER_DAILY_RATE}/day</span>
+                      <span className="text-violet-400">+₹{driverCost.toFixed(0)}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 

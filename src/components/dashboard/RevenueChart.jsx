@@ -5,7 +5,7 @@ function CustomTooltip({ active, payload, label }) {
   return (
     <div className="glass rounded-xl border border-white/10 px-3 py-2">
       <p className="text-white/40 text-xs mb-1">{label}</p>
-      <p className="gradient-text font-bold text-sm">${Number(payload[0].value).toLocaleString()}</p>
+      <p className="gradient-text font-bold text-sm">₹{Number(payload[0].value).toLocaleString()}</p>
     </div>
   )
 }
@@ -31,7 +31,7 @@ export default function RevenueChart({ data = [] }) {
           tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 11 }}
           axisLine={false}
           tickLine={false}
-          tickFormatter={v => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v}`}
+          tickFormatter={v => v >= 1000 ? `₹${(v / 1000).toFixed(0)}k` : `₹${v}`}
         />
         <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(139,92,246,0.08)' }} />
         <Bar dataKey="revenue" fill="url(#revenueBar)" radius={[6, 6, 0, 0]} maxBarSize={44} />

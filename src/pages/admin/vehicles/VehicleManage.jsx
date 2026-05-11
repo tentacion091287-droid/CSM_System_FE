@@ -163,7 +163,7 @@ export default function VehicleManage() {
                   <p className="text-white/50 text-sm capitalize">{v.category ?? v.type ?? '—'}</p>
                   <p className="text-white/40 text-sm font-mono">{v.license_plate ?? v.plate ?? '—'}</p>
                   <p className="gradient-text font-bold text-sm">
-                    {v.price_per_day != null ? `$${Number(v.price_per_day).toFixed(0)}/day` : '—'}
+                    {v.price_per_day != null ? `₹${Number(v.price_per_day).toFixed(0)}/day` : '—'}
                   </p>
                   <StatusBadge status={v.status ?? 'available'} />
                   <div className="flex items-center gap-2 flex-wrap">

@@ -178,7 +178,7 @@ export default function Home() {
                 {/* Floating badge — top right */}
                 <div className="absolute -top-5 -right-6 glass border border-white/15 rounded-2xl px-4 py-3 shadow-xl animate-slide-up" style={{ animationDelay: '0.4s' }}>
                   <p className="text-white/50 text-[10px] uppercase tracking-wider mb-0.5">Starting from</p>
-                  <p className="gradient-text text-lg font-extrabold">$49 / day</p>
+                  <p className="gradient-text text-lg font-extrabold">₹49 / day</p>
                 </div>
 
                 {/* Floating badge — bottom left */}

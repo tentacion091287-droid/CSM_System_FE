@@ -65,7 +65,7 @@ export default function AdminDashboard() {
   const STAT_CARDS = [
     { icon: '📋', label: 'Total Bookings',     value: dash?.bookings?.total     ?? '—', color: 'violet',  sub: 'All time',             delay: 0    },
     { icon: '🚗', label: 'Active Rentals',     value: dash?.bookings?.active    ?? '—', color: 'emerald', sub: 'On road now',           delay: 0.05 },
-    { icon: '💰', label: 'Total Revenue',      value: dash?.revenue?.total != null ? `$${Number(dash.revenue.total).toLocaleString()}` : '—', color: 'blue', sub: 'Verified payments', delay: 0.1 },
+    { icon: '💰', label: 'Total Revenue',      value: dash?.revenue?.total != null ? `₹${Number(dash.revenue.total).toLocaleString()}` : '—', color: 'blue', sub: 'Verified payments', delay: 0.1 },
     { icon: '✅', label: 'Available Vehicles', value: dash?.vehicles?.available ?? '—', color: 'cyan',    sub: 'Ready to book',         delay: 0.15 },
     { icon: '⏳', label: 'Pending Payments',  value: dash?.payments?.pending   ?? '—', color: 'amber',   sub: 'Awaiting processing',   delay: 0.2  },
     { icon: '⏰', label: 'Pending Bookings',  value: dash?.bookings?.pending   ?? '—', color: 'red',     sub: 'Awaiting approval',     delay: 0.25 },
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
                       <StatusBadge status={b.status} />
                       <p className="text-white/30 text-xs">{fmt(b.created_at)}</p>
                       {b.total_cost != null
-                        ? <p className="gradient-text font-bold text-sm">${Number(b.total_cost).toFixed(0)}</p>
+                        ? <p className="gradient-text font-bold text-sm">₹{Number(b.total_cost).toFixed(0)}</p>
                         : <span />
                       }
                     </Link>
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
                         <p className="text-white/30 text-xs truncate">{f.reason ?? 'Late return'}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-red-400 font-bold text-sm">${Number(f.amount ?? f.total_amount ?? 0).toFixed(0)}</p>
+                        <p className="text-red-400 font-bold text-sm">₹{Number(f.amount ?? f.total_amount ?? 0).toFixed(0)}</p>
                         {f.overdue_days != null && (
                           <p className="text-white/20 text-xs">{f.overdue_days}d overdue</p>
                         )}
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
                       <div className="text-right shrink-0">
                         <p className="text-amber-400 text-sm font-medium">{fmt(m.scheduled_date)}</p>
                         {m.cost != null && (
-                          <p className="text-white/20 text-xs">${Number(m.cost).toFixed(0)}</p>
+                          <p className="text-white/20 text-xs">₹{Number(m.cost).toFixed(0)}</p>
                         )}
                       </div>
                     </div>

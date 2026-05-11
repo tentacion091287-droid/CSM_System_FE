@@ -292,7 +292,7 @@ export default function BookingManage() {
                   </div>
 
                   {b.total_cost != null
-                    ? <p className="gradient-text font-bold text-sm">${Number(b.total_cost).toFixed(0)}</p>
+                    ? <p className="gradient-text font-bold text-sm">₹{Number(b.total_cost).toFixed(0)}</p>
                     : <span />
                   }
 

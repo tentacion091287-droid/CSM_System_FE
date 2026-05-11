@@ -54,7 +54,7 @@ export default function PaymentManage() {
 
   const promptVerify = (p) => setConfirm({
     title: 'Verify Payment',
-    message: `Mark payment #${String(p.id).padStart(5, '0')} ($${Number(p.amount).toFixed(0)}) as verified?`,
+    message: `Mark payment #${String(p.id).padStart(5, '0')} (₹${Number(p.amount).toFixed(0)}) as verified?`,
     confirmLabel: 'Verify',
     danger: false,
     successMsg: 'Payment verified',
@@ -125,7 +125,7 @@ export default function PaymentManage() {
                     {METHOD_LABEL[p.payment_method] ?? p.payment_method ?? '—'}
                   </span>
                   <p className="gradient-text font-bold text-sm">
-                    ${Number(p.amount ?? 0).toFixed(0)}
+                    ₹{Number(p.amount ?? 0).toFixed(0)}
                   </p>
                   <StatusBadge status={p.status ?? 'pending'} />
                   <div>

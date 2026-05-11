@@ -107,7 +107,7 @@ function PendingPaymentCard({ booking }) {
       </div>
       <div className="relative flex items-center gap-3 shrink-0">
         {booking.total_cost != null && (
-          <p className="gradient-text font-bold text-sm">${Number(booking.total_cost).toFixed(0)}</p>
+          <p className="gradient-text font-bold text-sm">₹{Number(booking.total_cost).toFixed(0)}</p>
         )}
         <Link
           to={`/payments/${booking.id}/pay`}
@@ -211,7 +211,7 @@ export default function CustomerDashboard() {
                       </p>
                     </div>
                     <div className="flex items-center gap-4 shrink-0">
-                      <p className="text-red-400 font-bold text-xl">${pendingFinesTotal.toFixed(0)}</p>
+                      <p className="text-red-400 font-bold text-xl">₹{pendingFinesTotal.toFixed(0)}</p>
                       <Link
                         to="/fines"
                         className="text-xs px-5 py-2 rounded-xl border border-red-500/30 text-red-400 hover:bg-red-500/10 font-medium transition-all duration-200 whitespace-nowrap"

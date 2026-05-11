@@ -199,7 +199,7 @@ export default function MaintenanceManage() {
                   <StatusBadge status={m.status ?? 'scheduled'} />
 
                   <p className="text-amber-400/80 text-sm font-medium">
-                    {m.cost != null ? `$${Number(m.cost).toFixed(0)}` : '—'}
+                    {m.cost != null ? `₹${Number(m.cost).toFixed(0)}` : '—'}
                   </p>
 
                   <div className="flex items-center gap-2 flex-wrap">

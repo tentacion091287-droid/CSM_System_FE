@@ -73,7 +73,7 @@ export default function PaymentPage() {
           </div>
           <div className="flex justify-between">
             <span className="text-white/30 text-sm">Amount</span>
-            <span className="gradient-text font-bold text-lg">${Number(booking.total_cost).toFixed(2)}</span>
+            <span className="gradient-text font-bold text-lg">₹{Number(booking.total_cost).toFixed(2)}</span>
           </div>
         </div>
 
@@ -145,7 +145,7 @@ export default function PaymentPage() {
             )}
             <div className="flex justify-between pt-3 border-t border-white/5">
               <span className="text-white/50 font-semibold">Total Due</span>
-              <span className="gradient-text text-2xl font-bold">${Number(total_cost).toFixed(2)}</span>
+              <span className="gradient-text text-2xl font-bold">₹{Number(total_cost).toFixed(2)}</span>
             </div>
           </div>
         </div>
@@ -203,7 +203,7 @@ export default function PaymentPage() {
           {submitting ? <Spinner size="sm" /> : (
             <>
               <span>🔒</span>
-              Submit Payment · ${Number(total_cost).toFixed(2)}
+              Submit Payment · ₹{Number(total_cost).toFixed(2)}
             </>
           )}
         </button>

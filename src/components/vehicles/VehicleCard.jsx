@@ -40,7 +40,7 @@ export default function VehicleCard({ vehicle }) {
           <div>
             <p className="text-white/30 text-xs uppercase tracking-wider">Daily rate</p>
             <p className="gradient-text text-2xl font-bold leading-none mt-0.5">
-              ${Number(daily_rate).toFixed(0)}
+              ₹{Number(daily_rate).toFixed(0)}
               <span className="text-white/30 text-xs font-normal ml-1">/day</span>
             </p>
           </div>

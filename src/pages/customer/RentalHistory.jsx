@@ -54,7 +54,7 @@ export default function RentalHistory() {
               <p className="text-white/20 text-xs mt-1 uppercase tracking-wider">Completed Rentals</p>
             </div>
             <div className="glass rounded-2xl border border-white/10 p-5 text-center">
-              <p className="gradient-text text-3xl font-bold">${totalSpent.toFixed(0)}</p>
+              <p className="gradient-text text-3xl font-bold">₹{totalSpent.toFixed(0)}</p>
               <p className="text-white/20 text-xs mt-1 uppercase tracking-wider">Total Spent</p>
             </div>
           </div>

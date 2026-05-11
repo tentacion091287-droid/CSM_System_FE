@@ -116,7 +116,7 @@ export default function BookingDetail() {
           <div className="mb-5 rounded-2xl bg-red-500/10 border border-red-500/20 p-5 flex items-center justify-between gap-4 animate-fade-in">
             <div>
               <p className="text-red-300 font-semibold text-sm">Overdue Fine</p>
-              <p className="text-white/40 text-xs mt-0.5">Amount due: <span className="text-red-400 font-semibold">${Number(fine.amount).toFixed(2)}</span></p>
+              <p className="text-white/40 text-xs mt-0.5">Amount due: <span className="text-red-400 font-semibold">₹{Number(fine.amount).toFixed(2)}</span></p>
             </div>
             <Link to="/fines" className="shrink-0 px-4 py-2 text-sm glass border border-red-500/30 text-red-400 rounded-xl hover:bg-red-500/10 transition-all duration-200">
               View Fine →
@@ -161,7 +161,7 @@ export default function BookingDetail() {
           {total_cost != null && (
             <div className="flex items-center justify-between pt-3 mt-1 border-t border-white/10">
               <span className="text-white/50 font-semibold">Total Cost</span>
-              <span className="gradient-text text-2xl font-bold">${Number(total_cost).toFixed(2)}</span>
+              <span className="gradient-text text-2xl font-bold">₹{Number(total_cost).toFixed(2)}</span>
             </div>
           )}
         </div>

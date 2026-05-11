@@ -36,7 +36,7 @@ function PaymentRow({ payment }) {
               </div>
             </div>
             <div className="text-right shrink-0">
-              <p className="gradient-text text-xl font-bold">${Number(amount).toFixed(2)}</p>
+              <p className="gradient-text text-xl font-bold">₹{Number(amount).toFixed(2)}</p>
               <div className="mt-1 flex justify-end">
                 <StatusBadge status={status} />
               </div>
@@ -103,8 +103,8 @@ export default function MyPayments() {
           <div className="grid grid-cols-3 gap-3 mb-6 animate-slide-up" style={{ animationDelay: '0.05s' }}>
             {[
               { label: 'Total',    value: total,        fmt: (v) => `${v}`, suffix: ' payments' },
-              { label: 'Paid',     value: totalPaid,    fmt: (v) => `$${v.toFixed(0)}`, suffix: ' verified' },
-              { label: 'Pending',  value: totalPending, fmt: (v) => `$${v.toFixed(0)}`, suffix: ' awaiting' },
+              { label: 'Paid',     value: totalPaid,    fmt: (v) => `₹${v.toFixed(0)}`, suffix: ' verified' },
+              { label: 'Pending',  value: totalPending, fmt: (v) => `₹${v.toFixed(0)}`, suffix: ' awaiting' },
             ].map(({ label, value, fmt, suffix }) => (
               <div key={label} className="glass rounded-2xl border border-white/10 p-4 text-center">
                 <p className="gradient-text text-2xl font-bold">{fmt(value)}</p>
