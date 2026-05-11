@@ -1,3 +1,4 @@
+import Select from '../common/Select'
 import { VEHICLE_BROWSE_CATEGORIES as CATEGORIES, INPUT_CLS_SM as inputCls, LABEL_CLS as labelCls } from '../../constants'
 
 export default function VehicleFilter({ filters, onChange, onSearch }) {
@@ -18,17 +19,16 @@ export default function VehicleFilter({ filters, onChange, onSearch }) {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className={labelCls}>Category</label>
-          <select
+          <Select
             value={filters.category}
             onChange={(e) => set('category', e.target.value)}
-            className={`${inputCls} appearance-none`}
           >
             {CATEGORIES.map(c => (
-              <option key={c} value={c} className="bg-[#0a0a1a]">
+              <option key={c} value={c}>
                 {c ? c.charAt(0).toUpperCase() + c.slice(1) : 'All Categories'}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
 
         <div>

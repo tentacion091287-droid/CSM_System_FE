@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { getVehicle, createVehicle, updateVehicle } from '../../../api/vehiclesApi'
+import Select from '../../../components/common/Select'
 import Spinner from '../../../components/common/Spinner'
 
 const schema = z.object({
@@ -133,11 +134,11 @@ export default function VehicleForm() {
                 <input type="number" min="1990" max={new Date().getFullYear() + 1} {...register('year')} className="input-exotic" />
               </Field>
               <Field label="Category" error={errors.category?.message}>
-                <select {...register('category')} className="input-exotic">
+                <Select {...register('category')}>
                   {CATEGORIES.map(c => (
                     <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
                   ))}
-                </select>
+                </Select>
               </Field>
             </div>
             <Field label="License Plate" error={errors.license_plate?.message}>
@@ -150,25 +151,25 @@ export default function VehicleForm() {
             <p className="text-white/25 text-xs uppercase tracking-widest font-semibold">Specs & Pricing</p>
             <div className="grid grid-cols-2 gap-4">
               <Field label="Fuel Type" error={errors.fuel_type?.message}>
-                <select {...register('fuel_type')} className="input-exotic">
+                <Select {...register('fuel_type')}>
                   {FUEL_TYPES.map(f => (
                     <option key={f} value={f}>{f.charAt(0).toUpperCase() + f.slice(1)}</option>
                   ))}
-                </select>
+                </Select>
               </Field>
               <Field label="Transmission" error={errors.transmission?.message}>
-                <select {...register('transmission')} className="input-exotic">
+                <Select {...register('transmission')}>
                   {TRANSMISSIONS.map(t => (
                     <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
                   ))}
-                </select>
+                </Select>
               </Field>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <Field label="Seats" error={errors.seats?.message}>
                 <input type="number" min="1" max="20" {...register('seats')} className="input-exotic" />
               </Field>
-              <Field label="Price per Day ($)" error={errors.price_per_day?.message}>
+              <Field label="Price per Day (₹)" error={errors.price_per_day?.message}>
                 <input type="number" min="1" step="0.01" placeholder="59.99" {...register('price_per_day')} className="input-exotic" />
               </Field>
             </div>

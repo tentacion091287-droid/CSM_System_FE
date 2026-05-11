@@ -49,10 +49,7 @@ export const FINE_STATUSES = ['', 'pending', 'paid', 'waived']
 // ─── Maintenance ─────────────────────────────────────────────────────────────
 
 export const MAINTENANCE_STATUSES = ['', 'scheduled', 'in_progress', 'completed', 'cancelled']
-export const MAINTENANCE_TYPES    = [
-  'oil_change', 'tire_rotation', 'brake_inspection', 'full_service',
-  'engine_check', 'ac_service', 'battery_replacement', 'other',
-]
+export const MAINTENANCE_TYPES    = ['routine', 'repair', 'inspection', 'cleaning']
 
 // ─── Ratings ─────────────────────────────────────────────────────────────────
 

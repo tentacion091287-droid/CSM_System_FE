@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getAllFines, waiveFine } from '../../../api/finesApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import StatusBadge from '../../../components/common/StatusBadge'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
@@ -83,24 +84,17 @@ export default function FineManage() {
             <input type="text" placeholder="Search by customer..." value={search}
               onChange={e => { setSearch(e.target.value); setPage(1) }} className="input-exotic pl-10" />
           </div>
-          <div className="relative sm:w-44">
-            <select
-              value={status}
-              onChange={e => { setStatus(e.target.value); setPage(1) }}
-              className="w-full appearance-none rounded-xl border border-white/10 bg-[#12122a] px-4 py-3 pr-9 text-sm text-white
-                focus:outline-none focus:border-violet-500/60 transition-all duration-300 cursor-pointer"
-            >
-              {STATUSES.map(s => (
-                <option key={s} value={s} className="bg-[#12122a] text-white">
-                  {s ? s.charAt(0).toUpperCase() + s.slice(1) : 'All Statuses'}
-                </option>
-              ))}
-            </select>
-            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
+          <Select
+            value={status}
+            onChange={e => { setStatus(e.target.value); setPage(1) }}
+            className="sm:w-44"
+          >
+            {STATUSES.map(s => (
+              <option key={s} value={s}>
+                {s ? s.charAt(0).toUpperCase() + s.slice(1) : 'All Statuses'}
+              </option>
+            ))}
+          </Select>
         </div>
 
         {loading ? (

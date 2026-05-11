@@ -7,6 +7,7 @@ import {
 } from '../../../api/bookingsApi'
 import { getDrivers } from '../../../api/driversApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import StatusBadge from '../../../components/common/StatusBadge'
 import Spinner from '../../../components/common/Spinner'
 
@@ -291,12 +292,12 @@ export default function AdminBookingDetail() {
             {fetchingD ? (
               <div className="flex justify-center py-6"><Spinner /></div>
             ) : (
-              <select value={driverId} onChange={e => setDriverId(e.target.value)} className="input-exotic mb-5">
+              <Select value={driverId} onChange={e => setDriverId(e.target.value)} className="mb-5">
                 <option value="">No driver</option>
                 {drivers.map(d => (
                   <option key={d.id} value={d.id}>{d.name} — {d.license_number ?? d.license ?? ''}</option>
                 ))}
-              </select>
+              </Select>
             )}
             <div className="flex gap-3">
               <button onClick={() => setShowActivate(false)} disabled={activating}

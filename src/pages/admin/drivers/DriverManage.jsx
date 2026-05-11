@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getDrivers, deleteDriver, toggleDriverAvailability } from '../../../api/driversApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 
@@ -116,15 +117,11 @@ export default function DriverManage() {
               className="input-exotic pl-10"
             />
           </div>
-          <select
-            value={avail}
-            onChange={e => { setAvail(e.target.value); setPage(1) }}
-            className="input-exotic sm:w-48"
-          >
+          <Select value={avail} onChange={e => { setAvail(e.target.value); setPage(1) }} className="sm:w-48">
             <option value="">All Drivers</option>
             <option value="true">Available</option>
             <option value="false">Unavailable</option>
-          </select>
+          </Select>
         </div>
 
         {/* Stats strip */}

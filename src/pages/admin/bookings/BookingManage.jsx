@@ -7,6 +7,7 @@ import {
 } from '../../../api/bookingsApi'
 import { getDrivers } from '../../../api/driversApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import StatusBadge from '../../../components/common/StatusBadge'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
@@ -57,18 +58,14 @@ function AssignDriverModal({ open, booking, onClose, onDone }) {
         {fetching ? (
           <div className="flex justify-center py-6"><Spinner /></div>
         ) : (
-          <select
-            value={driverId}
-            onChange={e => setDriverId(e.target.value)}
-            className="input-exotic mb-5"
-          >
+          <Select value={driverId} onChange={e => setDriverId(e.target.value)} className="mb-5">
             <option value="">No driver</option>
             {drivers.map(d => (
               <option key={d.id} value={d.id}>
                 {d.name} — {d.license_number ?? d.license ?? ''}
               </option>
             ))}
-          </select>
+          </Select>
         )}
 
         <div className="flex gap-3">
@@ -233,15 +230,15 @@ export default function BookingManage() {
               className="input-exotic pl-10"
             />
           </div>
-          <select
+          <Select
             value={statusFilter}
             onChange={e => { setStatusFilter(e.target.value); setPage(1) }}
-            className="input-exotic sm:w-44"
+            className="sm:w-44"
           >
             {STATUSES.map(s => (
               <option key={s} value={s}>{s ? s.charAt(0).toUpperCase() + s.slice(1) : 'All Statuses'}</option>
             ))}
-          </select>
+          </Select>
         </div>
 
         {/* Table */}

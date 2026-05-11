@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getVehicles, deleteVehicle, updateVehicleStatus } from '../../../api/vehiclesApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import StatusBadge from '../../../components/common/StatusBadge'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
@@ -105,16 +106,16 @@ export default function VehicleManage() {
               className="input-exotic pl-10"
             />
           </div>
-          <select value={category} onChange={e => { setCategory(e.target.value); setPage(1) }} className="input-exotic sm:w-44">
+          <Select value={category} onChange={e => { setCategory(e.target.value); setPage(1) }} className="sm:w-44">
             {CATEGORIES.map(c => (
               <option key={c} value={c}>{c ? c.charAt(0).toUpperCase() + c.slice(1) : 'All Categories'}</option>
             ))}
-          </select>
-          <select value={status} onChange={e => { setStatus(e.target.value); setPage(1) }} className="input-exotic sm:w-44">
+          </Select>
+          <Select value={status} onChange={e => { setStatus(e.target.value); setPage(1) }} className="sm:w-44">
             {STATUSES.map(s => (
               <option key={s} value={s}>{s ? s.charAt(0).toUpperCase() + s.slice(1) : 'All Statuses'}</option>
             ))}
-          </select>
+          </Select>
         </div>
 
         {!loading && total > 0 && (

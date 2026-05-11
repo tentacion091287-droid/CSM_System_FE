@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import { getUsers, updateUserStatus, updateUserRole } from '../../../api/adminApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
 
@@ -106,15 +107,11 @@ export default function UserManage() {
               className="input-exotic pl-10"
             />
           </div>
-          <select
-            value={roleFilter}
-            onChange={handleRoleChange}
-            className="input-exotic sm:w-44"
-          >
+          <Select value={roleFilter} onChange={handleRoleChange} className="sm:w-44">
             <option value="">All Roles</option>
             <option value="customer">Customer</option>
             <option value="admin">Admin</option>
-          </select>
+          </Select>
         </div>
 
         {/* Table */}

@@ -4,6 +4,7 @@ import {
   getMaintenances, cancelMaintenance, completeMaintenance,
 } from '../../../api/maintenanceApi'
 import ConfirmModal from '../../../components/common/ConfirmModal'
+import Select from '../../../components/common/Select'
 import StatusBadge from '../../../components/common/StatusBadge'
 import Pagination from '../../../components/common/Pagination'
 import Spinner from '../../../components/common/Spinner'
@@ -140,9 +141,9 @@ export default function MaintenanceManage() {
             <input type="text" placeholder="Search by vehicle..." value={search}
               onChange={e => { setSearch(e.target.value); setPage(1) }} className="input-exotic pl-10" />
           </div>
-          <select value={status} onChange={e => { setStatus(e.target.value); setPage(1) }} className="input-exotic sm:w-44">
+          <Select value={status} onChange={e => { setStatus(e.target.value); setPage(1) }} className="sm:w-44">
             {STATUSES.map(s => <option key={s} value={s}>{s ? s.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'All Statuses'}</option>)}
-          </select>
+          </Select>
         </div>
 
         {!loading && total > 0 && (

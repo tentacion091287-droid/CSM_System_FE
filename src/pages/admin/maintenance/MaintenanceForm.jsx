@@ -6,15 +6,16 @@ import { z } from 'zod'
 import { format } from 'date-fns'
 import { getMaintenance, createMaintenance, updateMaintenance } from '../../../api/maintenanceApi'
 import { getVehicles } from '../../../api/vehiclesApi'
+import Select from '../../../components/common/Select'
 import Spinner from '../../../components/common/Spinner'
 
 const schema = z.object({
-  vehicle_id:     z.coerce.number({ required_error: 'Vehicle is required' }),
-  type:           z.string().min(2, 'Type is required'),
-  scheduled_date: z.string().min(1, 'Scheduled date is required'),
-  description:    z.string().optional(),
-  performed_by:   z.string().optional(),
-  cost:           z.coerce.number().nonnegative().optional().or(z.literal('')),
+  vehicle_id:       z.string().min(1, 'Vehicle is required'),
+  maintenance_type: z.string().min(1, 'Type is required'),
+  scheduled_date:   z.string().min(1, 'Scheduled date is required'),
+  description:      z.string().optional(),
+  performed_by:     z.string().optional(),
+  cost:             z.coerce.number().nonnegative().optional().or(z.literal('')),
 })
 
 import { MAINTENANCE_TYPES as TYPES } from '../../../constants'
@@ -42,12 +43,12 @@ export default function MaintenanceForm() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      vehicle_id: '',
-      type: 'oil_change',
-      scheduled_date: format(new Date(), 'yyyy-MM-dd'),
-      description: '',
-      performed_by: '',
-      cost: '',
+      vehicle_id:       '',
+      maintenance_type: 'routine',
+      scheduled_date:   format(new Date(), 'yyyy-MM-dd'),
+      description:      '',
+      performed_by:     '',
+      cost:             '',
     },
   })
 
@@ -62,12 +63,12 @@ export default function MaintenanceForm() {
     if (!isEdit) return
     getMaintenance(id)
       .then(r => reset({
-        vehicle_id:     r.data.vehicle_id ?? r.data.vehicle?.id ?? '',
-        type:           r.data.type ?? r.data.maintenance_type ?? 'oil_change',
-        scheduled_date: r.data.scheduled_date ? r.data.scheduled_date.slice(0, 10) : format(new Date(), 'yyyy-MM-dd'),
-        description:    r.data.description   ?? '',
-        performed_by:   r.data.performed_by  ?? '',
-        cost:           r.data.cost != null   ? String(r.data.cost) : '',
+        vehicle_id:       r.data.vehicle_id ?? r.data.vehicle?.id ?? '',
+        maintenance_type: r.data.maintenance_type ?? 'routine',
+        scheduled_date:   r.data.scheduled_date ? r.data.scheduled_date.slice(0, 10) : format(new Date(), 'yyyy-MM-dd'),
+        description:      r.data.description ?? '',
+        performed_by:     r.data.performed_by ?? '',
+        cost:             r.data.cost != null ? String(r.data.cost) : '',
       }))
       .catch(() => setApiError('Failed to load maintenance record.'))
       .finally(() => setLoading(false))
@@ -125,22 +126,22 @@ export default function MaintenanceForm() {
           )}
 
           <Field label="Vehicle" error={errors.vehicle_id?.message}>
-            <select {...register('vehicle_id')} className="input-exotic">
+            <Select {...register('vehicle_id')}>
               <option value="">Select a vehicle</option>
               {vehicles.map(v => (
                 <option key={v.id} value={v.id}>
                   {v.make} {v.model} {v.year ? `(${v.year})` : ''} — {v.license_plate ?? v.plate ?? ''}
                 </option>
               ))}
-            </select>
+            </Select>
           </Field>
 
-          <Field label="Maintenance Type" error={errors.type?.message}>
-            <select {...register('type')} className="input-exotic">
+          <Field label="Maintenance Type" error={errors.maintenance_type?.message}>
+            <Select {...register('maintenance_type')}>
               {TYPES.map(t => (
-                <option key={t} value={t}>{t.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</option>
+                <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
               ))}
-            </select>
+            </Select>
           </Field>
 
           <Field label="Scheduled Date" error={errors.scheduled_date?.message}>
@@ -151,7 +152,7 @@ export default function MaintenanceForm() {
             <input type="text" placeholder="Mechanic name or garage" {...register('performed_by')} className="input-exotic" />
           </Field>
 
-          <Field label="Estimated Cost ($) — optional" error={errors.cost?.message}>
+          <Field label="Estimated Cost (₹) — optional" error={errors.cost?.message}>
             <input type="number" min="0" step="0.01" placeholder="0.00" {...register('cost')} className="input-exotic" />
           </Field>
 
