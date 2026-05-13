@@ -69,7 +69,7 @@ export default function Navbar() {
           ) : (
             <>
               <NavLink to={user?.role === 'admin' ? '/admin' : '/dashboard'}>Dashboard</NavLink>
-              <NavLink to="/bookings">Bookings</NavLink>
+              <NavLink to={user?.role === 'admin' ? '/admin/bookings' : '/bookings'}>Bookings</NavLink>
               <NavLink to="/profile">
                 <span className="flex items-center gap-1.5">
                   <span className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-[10px] font-bold text-white">
@@ -130,7 +130,7 @@ export default function Navbar() {
               <MobileNavLink to={user?.role === 'admin' ? '/admin' : '/dashboard'} onClick={close}>
                 Dashboard
               </MobileNavLink>
-              <MobileNavLink to="/bookings" onClick={close}>Bookings</MobileNavLink>
+              <MobileNavLink to={user?.role === 'admin' ? '/admin/bookings' : '/bookings'} onClick={close}>Bookings</MobileNavLink>
               <MobileNavLink to="/profile" onClick={close}>
                 <span className="flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-[10px] font-bold text-white">
